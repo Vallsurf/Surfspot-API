@@ -2,8 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan'); 
 const bodyParser = require('body-parser'); 
+var cors = require('cors')
 const app = express(); 
-const { PORT, DATABASE_URL } = require('./config');
+const { PORT, DATABASE_URL, CLIENT_ORIGIN } = require('./config');
 
 require('dotenv').config();
 
@@ -18,21 +19,17 @@ mongoose.Promise = global.Promise;
 
 let server; 
 
+// CORS
+app.use(
+    cors({
+        origin: CLIENT_ORIGIN
+    })
+);
 
 //Routes
 app.use('/api/spots', spotsRouter);
 
 
-// CORS
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
-    if (req.method === 'OPTIONS') {
-        return res.send(204);
-    }
-    next();
-});
 
 
 
