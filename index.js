@@ -10,6 +10,8 @@ require('dotenv').config();
 
 
 const { router: spotsRouter } = require('./routers/spots.router');
+const { router: usersRouter } = require('./routers/users.router');
+const { router: authRouter } = require('./routers/auth.router');
 
 
 app.use(bodyParser.json());
@@ -28,6 +30,8 @@ app.use(
 
 //Routes
 app.use('/api/spots', spotsRouter);
+app.use('/api/user', usersRouter);
+app.use('/api/login', authRouter);
 
 
 
