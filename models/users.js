@@ -21,6 +21,7 @@ UserSchema.methods.serialize = function () {
     return {
         id: this._id,
         username: this.username || '',
+        savedspots: this.savedspots
     };
 };
 

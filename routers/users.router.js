@@ -1,13 +1,14 @@
 
 const express = require('express');
 const passport = require('passport');
-// require('../auth/strategies')(passport);
+require('../auth/strategies')(passport);
 
-// const jwttoken = passport.authenticate('jwt', { session: false });
+const jwttoken = passport.authenticate('jwt', { session: false });
 
 // const disableWithToken = require('../disableWithToken').disableWithToken;
 const errorsParser = require('../errorsParser.js');
 const { User } = require('../models/users');
+const { Spots } = require('../models/spots');
 
 const router = express.Router();
 
@@ -45,17 +46,52 @@ router.route('/')
                 { return res.status(err.code).json(err); } 
                 res.status(400).json(errorsParser.generateErrorResponse(err));
             });
-    })
+    })  
+    
+    //debug no auth GET 
+    // .get((req, res) => {
+    //     User.find({ username: 'greatest'})
+    //     .populate(`savedspots`).exec()
+    //     .then(users => res.status(200).json(users))
+    // });
 
-
-    .get((req, res) => {
-        const test_id = `5b7e15c603571617f3693993`; 
-        User.find({ username: 'malibu'})
+    .get(jwttoken, (req, res) => {
+        User.find({ _id: req.user._id})
         .populate(`savedspots`).exec()
-        .then(users => res.status(200).json(users))
-
-        
+        .then(users => res.status(200).json(users))      
     });
+
+router.route('/removespot/:id')
+    .patch(jwttoken, (req,res) => {  
+        Spots
+       .findOne({spot_id : req.params.id}).select('_id')
+       .then(spotobjid => {
+          User
+          .findOneAndUpdate(
+              { _id: req.user._id}, {$pull: {savedspots : spotobjid._id}}, {new: true}
+            ).populate(`savedspots`).exec()
+            .then(updatedUser => res.status(200).json(updatedUser))  
+          .catch(err => res.status(500).json({ message: 'Something went wrong' }));
+        })
+    }); 
+
+router.route('/addspot/:id')
+    .patch(jwttoken, (req,res) => {  
+        Spots
+       .findOne({spot_id : req.params.id}).select('_id')
+       .then(spotobjid => {
+          User
+          .findOneAndUpdate(
+              { _id: req.user._id}, {$push: {savedspots : spotobjid._id}}, {new: true}
+            ).populate(`savedspots`).exec()
+            .then(updatedUser => {
+                res.status(200).json(updatedUser)
+               })
+          .catch(err => res.status(500).json({ message: 'Something went wrong' }));
+        })
+      
+    }); 
+
 
 
 module.exports = { router };
