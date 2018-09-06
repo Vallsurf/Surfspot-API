@@ -37,7 +37,7 @@ router.route('/')
             .then(hash => User.create({
                 username: req.body.username,
                 password: hash,
-                savedspots: `5b70bd9dac4e57f660120f48`
+                savedspots: []
             }))
             .then(user => res.status(201).json(user))
 
