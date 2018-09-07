@@ -11,7 +11,7 @@ router.use(jsonParser);
 router.route('/')
     .get((req, res) => {
         request({
-            uri: 'http://api.spitcast.com/api/county/water-temperature/orange-county/',
+            uri: 'https://jsonplaceholder.typicode.com/todos/1',
           }).pipe(res);
         });
 
