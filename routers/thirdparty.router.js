@@ -11,7 +11,7 @@ router.use(jsonParser);
 router.route('/')
     .get((req, res) => {
         request({
-            uri: 'http://jsonplaceholder.typicode.com/todos/1',
+            uri: 'http://api.spitcast.com/api/county/spots/orange-county/',
           }).pipe(res);
         });
 
