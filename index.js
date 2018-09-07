@@ -12,6 +12,7 @@ require('dotenv').config();
 const { router: spotsRouter } = require('./routers/spots.router');
 const { router: usersRouter } = require('./routers/users.router');
 const { router: authRouter } = require('./routers/auth.router');
+const { router: thirdpartyRouter } = require('./routers/thirdparty.router');
 
 
 app.use(bodyParser.json());
@@ -34,6 +35,7 @@ app.use(
 app.use('/api/spots', spotsRouter);
 app.use('/api/user', usersRouter);
 app.use('/api/login', authRouter);
+app.use('/api/test', thirdpartyRouter);
 
 // Starting and Ending Scripts
 function runServer(databaseUrl, port = PORT) {
