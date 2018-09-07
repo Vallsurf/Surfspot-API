@@ -24,7 +24,9 @@ let server;
 // CORS
 app.use(
     cors({
-        origin: CLIENT_ORIGIN
+        origin: CLIENT_ORIGIN, 
+        method: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS"
+
     })
 );
 
@@ -32,10 +34,6 @@ app.use(
 app.use('/api/spots', spotsRouter);
 app.use('/api/user', usersRouter);
 app.use('/api/login', authRouter);
-
-
-
-
 
 // Starting and Ending Scripts
 function runServer(databaseUrl, port = PORT) {
