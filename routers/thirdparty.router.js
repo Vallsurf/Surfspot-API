@@ -11,7 +11,7 @@ router.use(jsonParser);
 router.route('/')
     .get((req, res) => {
         request({
-            uri: 'https://jsonplaceholder.typicode.com/todos/1',
+            uri: 'http://jsonplaceholder.typicode.com/todos/1',
           }).pipe(res);
         });
 
