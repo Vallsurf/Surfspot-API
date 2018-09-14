@@ -16,14 +16,14 @@ Password: Tester
 
 ### Built With:
 
-Client-Side: 
+Client-Side(repo available [here](https://github.com/Vallsurf/Surfspot): 
 - Reactjs
 - Redux
 - CSS3
 - Enzyme & Jest (testing)
 - Chartjs 
 
-Server-Side (repo available [here](https://github.com/Vallsurf/Surfspot-API)): 
+Server-Side: 
 - Nodejs
 - Express
 - MongoDB
