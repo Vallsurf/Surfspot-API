@@ -16,7 +16,7 @@ Password: Tester
 
 ### Built With:
 
-Client-Side(repo available [here](https://github.com/Vallsurf/Surfspot): 
+Client-Side(repo available [here](https://github.com/Vallsurf/Surfspot)): 
 - Reactjs
 - Redux
 - CSS3
